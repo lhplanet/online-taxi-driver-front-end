@@ -1,0 +1,23 @@
+node_modules/
+dist/**
+.project
+unpackage/
+.DS_Store
+wxcomponents/**/*.vue
+wxcomponents/**/*.css
+.hbuilderx/
+
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+tests/**/coverage/
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
