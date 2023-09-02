@@ -77,9 +77,9 @@ const getUserCarInfo = async () => {
     // updatePoint();
     // 测试用
     testUpdatePoint({
-      lat: '39.924477',
-      lng: '116.615574',
-      name: '草房'
+      lat: '36.667382',
+      lng: '117.140109',
+      name: '山东大学软件学院'
     });
   }
 }

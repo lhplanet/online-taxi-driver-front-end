@@ -58,7 +58,7 @@ const handleGrabOrder = async (item)=>{
     });
     if(!HandleApiError(error)){
         orderDetail.value.orderStatus = ORDER_STATUS.driverToPickUp;
-        
+
     }
 }
 /**
@@ -136,36 +136,40 @@ const testUpdatePoint = async () =>{
         "carId": orderDetail.value.carId,
         "points": [
             {
-                "location": "116.615574,39.924477",
+                "location": "117.140109,36.667382",
                 "locatetime": time + 1000
             },
             {
-                "location": "116.617823,39.929737",
+                "location": "117.137738,36.666754",
                 "locatetime": time + 2000
             },
             {
-                "location": "116.618003,39.927718",
+                "location": "117.137738,36.666754",
                 "locatetime": time + 3000
             },
             {
-                "location": "116.611319,39.927137",
+                "location": "117.137738,36.666754",
                 "locatetime": time + 4000
             },
             {
-                "location": "116.611391,39.924951",
+                "location": "117.137738,36.666754",
                 "locatetime": time + 5000
             },
             {
-                "location": "116.612182,39.918587",
+                "location": "117.137738,36.666754",
                 "locatetime": time + 6000
             },
             {
-                "location": "116.60769,39.918089",
+                "location": "117.137738,36.666754",
                 "locatetime": time + 7000
             },
             {
-                "location": "116.599002,39.90909",
+                "location": "117.137738,36.666754",
                 "locatetime": time + 8000
+            },
+            {
+              "location": "117.100101,36.659042",
+              "locatetime": time + 9000
             }
         ]
     })
@@ -216,7 +220,7 @@ const testUpdatePoint = async () =>{
     border-radius: 50%;
     background: #f0ad4e;
     margin-right: $uni-spacing-row-base;
-    
+
 }
 
     .btn{
