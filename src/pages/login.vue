@@ -10,7 +10,9 @@
         </text>
       </view>
     </view>
-    <button class="login--btn" @click="handleLogin">登录</button>
+    <view class="login--center">
+      <button class="login--btn" @click="handleLogin">登录</button>
+    </view>
   </view>
 </template>
 
@@ -103,22 +105,23 @@ const handleLogin = async () => {
   // 如果校验成功，保存token，跳转到首页
   if (!HandleApiError(error)) {
     $store.commit('setToken', result.accessToken);
-    getDriverInfo();
+    // $store.commit('setPhone', phone.value);
+    // getDriverInfo();
     uni.redirectTo({url: '/pages/index'});
   }
 }
 
 // 获取司机信息
-const getDriverInfo = async () => {
-  const {error, result} = await ApiGetDriverInfo({driverPhone: phone.value});
-
-  console.log("--------------");
-  console.log(result);
-
-  if (!HandleApiError(error)) {
-    $store.commit('setUserInfo', result);
-  }
-}
+// const getDriverInfo = async () => {
+//   const {error, result} = await ApiGetDriverInfo({driverPhone: phone.value});
+//
+//   console.log("--------------");
+//   console.log(result);
+//
+//   if (!HandleApiError(error)) {
+//     $store.commit('setUserInfo', result);
+//   }
+// }
 
 // TODO: 双击logo跳转到账号管理页面，方便测试，上线时删除
 const handleAccount = () => {
@@ -137,6 +140,11 @@ const handleAccount = () => {
 .login{
 	width: 650rpx;
 	margin: 0 auto;
+  // 解决登录按钮在屏幕宽度超过976px后不居中的问题
+  &--center {
+    display: grid;
+    place-items: center;
+  }
 	&--input{
 		border-bottom: 2rpx solid $uni-border-color;
 		width: 650rpx;

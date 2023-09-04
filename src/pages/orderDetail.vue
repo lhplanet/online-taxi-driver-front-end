@@ -3,8 +3,16 @@
         <!-- <BSseMessage/> -->
         <BMap />
         <view class="operation">
-            <view class="start-address">{{orderDetail.departure}}</view>
-            <view class="end-address" > {{orderDetail.destination}}</view>
+          <view class="icon-text">
+            <!-- 添加上车图标 -->
+            <image src="@/static/images/start-icon.png" class="icon" />
+            <text class="start-address">{{orderDetail.departure}}</text>
+          </view>
+          <view class="icon-text">
+            <image src="@/static/images/end-icon.png" class="icon" />
+            <text class="end-address">{{orderDetail.destination}}</text>
+          </view>
+
             <button class="btn" v-if="orderDetail.orderStatus === ORDER_STATUS.driverReceive" @click="handleGrabOrder">去接乘客</button>
             <button class="btn" v-if="orderDetail.orderStatus === ORDER_STATUS.driverToPickUp" @click="handleToDeparture">到达约定点</button>
             <button class="btn" v-if="orderDetail.orderStatus === ORDER_STATUS.driverArriveStartPoint" @click="handlePickUpPassenger">接到乘客</button>
@@ -193,40 +201,53 @@ const testUpdatePoint = async () =>{
     box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
 }
 
-.start-address,.end-address{
+.icon-text {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  margin-right: 10px;
+}
+
+.start-address, .end-address{
     height: 30rpx;
+    //line-height: 30rpx;
     font-size: $uni-font-size-base;
-    display: flex;
-    align-items: center;
+    //display: flex;
+    //align-items: center;
     padding: 0 $uni-spacing-lg;
     margin-bottom: $uni-spacing-big;
-    &::before{
-        display: block;
-        content: '';
-        width: 10rpx;
-        height: 10rpx;
-        border-radius: 50%;
-        background: #19c235;
-        margin-right: $uni-spacing-row-base;
-
-    }
+    //&::before{
+    //    display: block;
+    //    content: '';
+    //    width: 10rpx;
+    //    height: 10rpx;
+    //    border-radius: 50%;
+    //    background: #19c235;
+    //    margin-right: $uni-spacing-row-base;
+    //
+    //}
 }
 
-.end-address::before{
-    display: block;
-    content: '';
-    width: 10rpx;
-    height: 10rpx;
-    border-radius: 50%;
-    background: #f0ad4e;
-    margin-right: $uni-spacing-row-base;
-
-}
+//.end-address::before{
+//    display: block;
+//    content: '';
+//    width: 10rpx;
+//    height: 10rpx;
+//    border-radius: 50%;
+//    background: #f0ad4e;
+//    margin-right: $uni-spacing-row-base;
+//
+//}
 
     .btn{
-        height: 100rpx;
-        line-height: 100rpx;
-        font-size: 38rpx;
+        //height: 100rpx;
+        //line-height: 100rpx;
+        font-size: $uni-font-size-lg;
         background: $uni-color-primary;
         color: $uni-text-color-inverse;
         margin: $uni-spacing-row-base 0;

@@ -31,14 +31,23 @@ const ApiPostVerifyCodeCheck = ({driverPhone,verificationCode}) => MsbRequest.po
  * @returns {Promise<any>}
  * @constructor
  */
-const ApiGetDriverInfo = (data = {driverPhone}) => MsbRequest.get('/user-info', data)
+const ApiGetDriverInfo = (data = {driverId}) => MsbRequest.post('/user-info', data)
+
+// const ApiGetDriverInfoById = (data = {driverId}) => MsbRequest.get('/driver-info', data)
+
+/**
+ * 获取司机的车辆
+ * @returns {Promise<any>}
+ * @constructor
+ */
+const ApiGetUserCarInfo = () => MsbRequest.get('/driver-car-binding-relationship');
 
 /**
  * 获取司机的车辆信息
  * @returns {Promise<any>}
  * @constructor
  */
-const ApiGetUserCarInfo = () => MsbRequest.get('/driver-car-binding-relationship');
+const ApiGetCarInfo = (data = {carId}) => MsbRequest.get('/get-car-info', data);
 
 /**
  * 上传司机的位置信息
@@ -71,5 +80,7 @@ export {
     ApiPostUpdatePoint,
     ApiGetWorkStatus,
     ApiPostUpdateWorkStatus,
-    ApiGetDriverInfo
+    ApiGetDriverInfo,
+    ApiGetCarInfo
+    // ApiGetDriverInfoById
 }

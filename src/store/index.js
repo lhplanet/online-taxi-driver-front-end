@@ -6,6 +6,7 @@ const serverConf = uni.getStorageSync(STORAGE_KEY.serverConf);
 export default createStore({
     state: {
         city : gdMapConf.city,
+        phone : '',
         token : uni.getStorageSync(STORAGE_KEY.token) || '',
         userInfo : JSON.parse(uni.getStorageSync(STORAGE_KEY.userInfo) || '{}'),
         point: {},
@@ -14,6 +15,9 @@ export default createStore({
     mutations: {
         setCity(state, data) {
             state.city = data;
+        },
+        setPhone(state, data) {
+            state.phone = data;
         },
 		setToken (state, token = ''){
 			state.token = token;
