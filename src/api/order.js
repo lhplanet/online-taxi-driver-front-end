@@ -26,7 +26,7 @@ const ApiPostOrderCancel = ( data = {orderId}) => MsbRequest.post('/order/cancel
  * @returns {Promise<any>}
  * @constructor
  */
-const ApiPostToPickUpPassenger = (data = {orderId,toPickUpPassengerTime,toPickUpPassengerLongitude,toPickUpPassengerLatitude,toPickUpPassengerAddress}) => MsbRequest.post('/order/to-pick-up-passenger',data);
+const ApiPostToPickUpPassenger = (data = {orderId,toPickUpPassengerTime,toPickUpPassengerLongitude,toPickUpPassengerLatitude,toPickUpPassengerAddress, passengerId}) => MsbRequest.post('/order/to-pick-up-passenger',data);
 
 /**
  * 到达接乘客地点
@@ -34,7 +34,7 @@ const ApiPostToPickUpPassenger = (data = {orderId,toPickUpPassengerTime,toPickUp
  * @returns {Promise<any>}
  * @constructor
  */
-const ApiPostToDeparture = (data = {orderId}) => MsbRequest.post('/order/arrived-departure', data)
+const ApiPostToDeparture = (data = {orderId, passengerId}) => MsbRequest.post('/order/arrived-departure', data)
 
 /**
  * 接到乘客
@@ -42,7 +42,7 @@ const ApiPostToDeparture = (data = {orderId}) => MsbRequest.post('/order/arrived
  * @returns {Promise<any>}
  * @constructor
  */
-const ApiPostPickUpPassenger = (data = { orderId, pickUpPassengerLongitude, pickUpPassengerLatitude}) => MsbRequest.post('/order/pick-up-passenger', data)
+const ApiPostPickUpPassenger = (data = { orderId, pickUpPassengerLongitude, pickUpPassengerLatitude, passengerId}) => MsbRequest.post('/order/pick-up-passenger', data)
 
 /**
  * 乘客下车
@@ -50,7 +50,7 @@ const ApiPostPickUpPassenger = (data = { orderId, pickUpPassengerLongitude, pick
  * @returns {Promise<any>}
  * @constructor
  */
-const ApiPostPassengerOff = (data = { orderId, passengerGetoffLongitude, passengerGetoffLatitude}) => MsbRequest.post('/order/passenger-getoff', data)
+const ApiPostPassengerOff = (data = { orderId, passengerGetoffLongitude, passengerGetoffLatitude, passengerId}) => MsbRequest.post('/order/passenger-getoff', data)
 
 /**
  * 发起支付

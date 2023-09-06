@@ -1,7 +1,7 @@
 <template>
     <view class="wrapper">
         <!-- <BSseMessage/> -->
-        <BMap />
+        <BMap ref="mapRef"/>
         <view class="operation">
           <view class="icon-text">
             <!-- 添加上车图标 -->
@@ -22,7 +22,6 @@
     </view>
 </template>
 <script setup>
-import { onLoad } from "@dcloudio/uni-app"
 import { ApiGetCurrentOrder, ApiPostToPickUpPassenger, ApiPostOrderCancel, ApiPostOrderPayInfo, ApiPostPassengerOff, ApiPostPickUpPassenger, ApiPostToDeparture, ApiGetOrderDetail } from "../api/order"
 import { HandleApiError, ShowToast } from "../utils";
 import {ORDER_STATUS} from '../config/dicts'
@@ -36,6 +35,7 @@ import { ApiPostUpdatePoint } from "../api/user";
 const $store = useStore();
 const currentPoint = computed(()=> $store.state.point);
 let orderDetail = ref({});
+let mapRef = ref(null);
 
 onMounted(()=>{
     getOrderDetail();
@@ -45,6 +45,7 @@ const getOrderDetail = async () => {
 	console.log(result)
     if(result){
         orderDetail.value = result
+      mapRef.value.driving([result.depLongitude, result.depLatitude], [result.destLongitude, result.destLatitude]);
     }else{
         uni.redirectTo({url:'/pages/index'});
     }
@@ -62,7 +63,8 @@ const handleGrabOrder = async (item)=>{
         toPickUpPassengerTime: _FormatDate(new Date(), 'yyyy-mm-dd hh:ii:ss'),
         toPickUpPassengerLongitude: currentPoint.value.lng,
         toPickUpPassengerLatitude: currentPoint.value.lat,
-        toPickUpPassengerAddress: currentPoint.value.name
+        toPickUpPassengerAddress: currentPoint.value.name,
+      passengerId: 1 // TODO：测试使用
     });
     if(!HandleApiError(error)){
         orderDetail.value.orderStatus = ORDER_STATUS.driverToPickUp;
@@ -75,7 +77,8 @@ const handleGrabOrder = async (item)=>{
  */
 const handleToDeparture = async () => {
     const {error, result} = await ApiPostToDeparture({
-        orderId: orderDetail.value.id
+        orderId: orderDetail.value.id,
+      passengerId: 1 // TODO：测试使用
     });
     if(!HandleApiError(error)){
         orderDetail.value.orderStatus = ORDER_STATUS.driverArriveStartPoint;
@@ -89,7 +92,8 @@ const handlePickUpPassenger = async ()=>{
     const {error, result} = await ApiPostPickUpPassenger({
          orderId: orderDetail.value.id,
          pickUpPassengerLongitude: currentPoint.value.lng,
-         pickUpPassengerLatitude: currentPoint.value.lat
+         pickUpPassengerLatitude: currentPoint.value.lat,
+      passengerId: 1 // TODO：测试使用
     });
     if(!HandleApiError(error)){
         orderDetail.value.orderStatus = ORDER_STATUS.tripStart;
@@ -103,7 +107,8 @@ const handleTripFinish = async ()=>{
         orderId: orderDetail.value.id,
         // 测试使用的最后位置
         passengerGetoffLongitude: '116.599002',
-        passengerGetoffLatitude: '39.90909'
+        passengerGetoffLatitude: '39.90909',
+      passengerId: 1 // TODO：测试使用
 
         // passengerGetoffLongitude: currentPoint.value.lng,
         // passengerGetoffLatitude: currentPoint.value.lat

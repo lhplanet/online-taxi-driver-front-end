@@ -1,5 +1,6 @@
 <template>
-  <BSseMessage @receiveOrder="handleReceiveOrder"/>
+  <view class="wrapper">
+  <BSseMessage @receiveMsg="handleReceiveMsg"/>
   <view class="table">
     <view class="table-item table-item-one">
       <div class="title">司机信息</div>
@@ -36,19 +37,26 @@
       </div>
     </view>
     <view class="table-item btn-item sys-btn">
-      <view @click="handleAccount()">设置</view>
+<!--      <view @click="handleAccount()">设置</view>-->
+      <view @click="handleLogout()">退出</view>
     </view>
   </view>
   <view class="operation">
     <!-- 不同状态下方按钮不同 -->
     <template v-if="workStatus === 1">
-      <view class="desc">听单中...</view>
+      <template v-if="orderCome === 1">
+        <view class="desc">接单</view>
+      </template>
+      <template v-else>
+        <view class="desc">听单中...</view>
+      </template>
       <button class="btn btn__waring" @click="handleWorkStatus(0)">收车</button>
     </template>
     <template v-else>
 <!--      <view class="desc">勤劳的小蜜蜂，要开始工作了吗？</view>-->
       <button class="btn " @click="handleWorkStatus(1)">出车</button>
     </template>
+  </view>
   </view>
 </template>
 
@@ -74,6 +82,8 @@ const userInfo = computed(() => $store.state.userInfo);
 let workStatus = ref(null);
 let carInfoTable = ref({});
 let driverInfoTable = ref({});
+let driverPhoneNum = ref(null);
+let orderCome = ref(0);
 
 // onLoad(() => {
 //   getDriverInfo();
@@ -104,8 +114,13 @@ const getCarColor = (colorNumber) => {
 };
 
 // 点击出车/收车按钮，跳转到订单页面
-const handleReceiveOrder = () => {
-  uni.navigateTo({url: '/pages/orderDetail'});
+const handleReceiveMsg = (msg) => {
+  if(msg.driverId){
+    driverPhoneNum.value = msg.driverId;
+    orderCome.value = 1;
+    console.log("==============sjdjfskdj==================")
+    uni.navigateTo({url: '/pages/orderDetail'});
+  }
 }
 
 const getCarInfo = async () => {
@@ -152,6 +167,12 @@ const getUserCarInfo = async () => {
     console.log(result)
 
     // result.add('driverPhone', userInfo.value.driverPhone);
+
+    // result.set('id', userInfo.value.driverId);
+
+    // $set(result, 'id', userInfo.value.driverPhone);
+
+    result.id = userInfo.value.driverId;
 
     // 存储司机的车辆信息
     $store.commit('setUserInfo', result);
@@ -244,9 +265,15 @@ const handleWorkStatus = async (status) => {
   }
 
 }
-const handleAccount = () => {
-  uni.navigateTo({url: '/pages/account'});
+
+const handleLogout = () =>{
+  $store.commit('setToken', '');
+  uni.redirectTo({url:'/pages/login'});
 }
+
+// const handleAccount = () => {
+//   uni.navigateTo({url: '/pages/account'});
+// }
 </script>
 
 
